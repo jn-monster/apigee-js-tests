@@ -50,6 +50,6 @@ public class Request extends ScriptableObject {
 
   @Override
   public String getClassName() {
-    return "Request";
+    return "org.example.apigee.model.Request";
   }
 }

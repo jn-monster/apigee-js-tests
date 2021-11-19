@@ -19,15 +19,12 @@ public abstract class AbstractJsPolicyTest {
   ApigeeCrypto apigeeCrypto;
 
   protected void evaluateTest() throws IOException {
-//    Context context = Context.enter();
-//    ScriptableObject scope = new Global(context);
-
     this.apigeeContext = ApigeeUtils.createScriptableObject(ApigeeContext.class);
     this.apigeeCrypto = new ApigeeCrypto();
 
     // Add apigee context and crypto to scope
-    addObjectToScope("context", apigeeContext, scope);
-    addObjectToScope("crypto", apigeeCrypto, scope);
+    addObjectToScope("context", apigeeContext);
+    addObjectToScope("crypto", apigeeCrypto);
 
     // Run the JS code
     context.evaluateReader(scope, new FileReader(getTestFile()), getTestFile().getName(), 1, null);
@@ -35,7 +32,7 @@ public abstract class AbstractJsPolicyTest {
 
   abstract File getTestFile();
 
-  private void addObjectToScope(String name, Object object, Scriptable scope) {
+  private void addObjectToScope(String name, Object object) {
     Scriptable scriptable = Context.toObject(object, scope);
     scope.put(name, scope, scriptable);
   }

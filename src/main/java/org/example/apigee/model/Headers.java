@@ -47,7 +47,7 @@ public class Headers extends ScriptableObject {
 
   @Override
   public String getClassName() {
-    return "Headers";
+    return "org.example.apigee.model.Headers";
   }
 
 }

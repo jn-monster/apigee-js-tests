@@ -8,8 +8,8 @@ import org.mozilla.javascript.ScriptableObject;
 public class ApigeeUtils {
 
   public static <T extends Scriptable> T createScriptableObject(Class<T> c) {
-    String classSimpleName = c.getSimpleName();
-    if (!ScriptableObject.hasProperty(AbstractJsPolicyTest.scope, classSimpleName)) {
+    String className = c.getName();
+    if (!ScriptableObject.hasProperty(AbstractJsPolicyTest.scope, className)) {
       try {
         ScriptableObject.defineClass(AbstractJsPolicyTest.scope, c);
       } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
@@ -17,6 +17,6 @@ public class ApigeeUtils {
       }
     }
 
-    return (T) Context.getCurrentContext().newObject(AbstractJsPolicyTest.scope, classSimpleName);
+    return (T) Context.getCurrentContext().newObject(AbstractJsPolicyTest.scope, className);
   }
 }

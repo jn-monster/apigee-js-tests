@@ -38,6 +38,6 @@ public class ApigeeContext extends ScriptableObject {
 
   @Override
   public String getClassName() {
-    return "ApigeeContext";
+    return "org.example.apigee.model.ApigeeContext";
   }
 }

@@ -18,8 +18,8 @@ print("Foo Value[0]: " + context.targetRequest.headers['foo'][0]);  // bar
 print("Foo default Value: " + context.targetRequest.headers['foo']);  // bar
 print("Foo Length: " + context.targetRequest.headers['foo'].length()); // 1
 print("Foo Value=== (false): " + context.targetRequest.headers['foo'][0] === 'bar')
-print("Foo Value== (true): " + context.targetRequest.headers['foo'][0] == 'bar')
-print("Foo Value== with '' (true): " + context.targetRequest.headers['foo'] + '' == 'bar');
+print("Foo Value== (false): " + context.targetRequest.headers['foo'][0] == 'bar')
+print("Foo Value== with '' (false): " + context.targetRequest.headers['foo'] + '' == 'bar');
 
 // {'foo2': ['bar', 'baz']}
 // print("Foo2 Length: " + context.targetRequest.headers['foo2'].length()); // 2
