@@ -13,7 +13,7 @@ public class Request extends ScriptableObject {
 //  private RequestBody body;
 
   public Request() {
-    this.headers = ApigeeUtils.createScriptableObject(this, Headers.class);
+    this.headers = ApigeeUtils.createScriptableObject(Headers.class);
     this.url = "urlValue";
     this.method = "GET";
   }

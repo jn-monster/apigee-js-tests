@@ -14,8 +14,8 @@ public class Headers extends ScriptableObject {
   private Map<String, HeaderValues> headers = new LinkedHashMap<>();
 
   public Headers() {
-    var headerValues = ApigeeUtils.createScriptableObject(this, HeaderValues.class);
-    var headerValues2 = ApigeeUtils.createScriptableObject(this, HeaderValues.class);
+    var headerValues = ApigeeUtils.createScriptableObject(HeaderValues.class);
+    var headerValues2 = ApigeeUtils.createScriptableObject(HeaderValues.class);
 
     headerValues.setHeaderValues(Arrays.asList("bar"));
     headerValues2.setHeaderValues(Arrays.asList("bar", "baz"));

@@ -1,5 +1,6 @@
 package org.example.apigee.model;
 
+import org.example.AbstractJsPolicyTest;
 import org.example.ApigeeUtils;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
@@ -12,7 +13,7 @@ public class ApigeeContext extends ScriptableObject {
   private Request targetRequest;
 
   public ApigeeContext() {
-    this.targetRequest = ApigeeUtils.createScriptableObject(this, Request.class);
+    this.targetRequest = ApigeeUtils.createScriptableObject(Request.class);
   }
 
   @JSGetter

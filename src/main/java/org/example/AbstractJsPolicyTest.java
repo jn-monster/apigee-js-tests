@@ -12,14 +12,17 @@ import org.mozilla.javascript.tools.shell.Global;
 
 public abstract class AbstractJsPolicyTest {
 
+  public static final Context context = Context.enter();
+  public static final ScriptableObject scope = new Global(context);
+
   ApigeeContext apigeeContext;
   ApigeeCrypto apigeeCrypto;
 
   protected void evaluateTest() throws IOException {
-    Context context = Context.enter();
-    ScriptableObject scope = new Global(context);
+//    Context context = Context.enter();
+//    ScriptableObject scope = new Global(context);
 
-    this.apigeeContext = ApigeeUtils.createScriptableObject(scope, ApigeeContext.class);
+    this.apigeeContext = ApigeeUtils.createScriptableObject(ApigeeContext.class);
     this.apigeeCrypto = new ApigeeCrypto();
 
     // Add apigee context and crypto to scope

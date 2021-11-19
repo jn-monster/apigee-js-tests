@@ -7,16 +7,16 @@ import org.mozilla.javascript.ScriptableObject;
 
 public class ApigeeUtils {
 
-  public static <T extends Scriptable> T createScriptableObject(Scriptable scope, Class<T> c) {
+  public static <T extends Scriptable> T createScriptableObject(Class<T> c) {
     String classSimpleName = c.getSimpleName();
-    if (!ScriptableObject.hasProperty(scope, classSimpleName)) {
+    if (!ScriptableObject.hasProperty(AbstractJsPolicyTest.scope, classSimpleName)) {
       try {
-        ScriptableObject.defineClass(scope, c);
+        ScriptableObject.defineClass(AbstractJsPolicyTest.scope, c);
       } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
         throw new IllegalStateException(e);
       }
     }
 
-    return (T) Context.getCurrentContext().newObject(scope, classSimpleName);
+    return (T) Context.getCurrentContext().newObject(AbstractJsPolicyTest.scope, classSimpleName);
   }
 }
