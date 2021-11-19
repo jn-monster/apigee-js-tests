@@ -1,55 +1,42 @@
 package org.example.apigee.model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
 
-public class ApigeeContext {
+public class ApigeeContext extends ScriptableObject {
+
+  private String flow = "PROXY_REQ_FLOW";
+  private Request targetRequest = new Request();
+
+  public ApigeeContext() {
+  }
+
   public String getFlow() {
-    return "PROXY_REQ_FLOW";
+    return flow;
   }
 
-  public Request getTargetRequest() {
-    return new Request();
+  public void setFlow(String flow) {
+    this.flow = flow;
   }
 
-  public class Request {
-    private final RequestHeaders headers = new RequestHeaders();
-
-    public RequestHeaders getHeaders() {
-      return headers;
-    }
+  public Scriptable getTargetRequest() {
+    return targetRequest;
   }
 
-  public class RequestHeaders extends ScriptableObject {
-    private final Map<String, List<String>> headers = new HashMap<>();
-
-    public RequestHeaders() {
-      headers.put("foo", new ListWithLength<>(List.of("bar")));
-    }
-
-    @Override
-    public String getClassName() {
-      return "RequestHeaders";
-    }
-
-    public Object get(String name, Scriptable start) {
-      return headers.get(name);
-    }
+  public void setTargetRequest(Request targetRequest) {
+    this.targetRequest = targetRequest;
   }
 
-  public class ListWithLength<T> extends ArrayList<T> implements List<T> {
-    public ListWithLength(Collection<? extends T> c) {
-      super(c);
-    }
+  @Override
+  public Object get(String name, Scriptable start) {
+    if (name.equals("flow")) return flow;
+    if (name.equals("targetRequest")) return targetRequest;
 
-    public long length() {
-      return size();
-    }
+    return super.get(name, start);
+  }
+
+  @Override
+  public String getClassName() {
+    return "ApigeeContext";
   }
 }

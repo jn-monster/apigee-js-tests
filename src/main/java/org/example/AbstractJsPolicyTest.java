@@ -3,27 +3,36 @@ package org.example;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import org.example.apigee.model.ApigeeContext;
 import org.example.apigee.model.ApigeeCrypto;
+import org.example.apigee.model.HeaderValues;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
+import org.mozilla.javascript.ScriptableObject;
 import org.mozilla.javascript.tools.shell.Global;
 
 public abstract class AbstractJsPolicyTest {
 
-  ApigeeContext context = new ApigeeContext();
-  ApigeeCrypto crypto = new ApigeeCrypto();
+  public static final Context context = Context.enter();
+  public static final ScriptableObject scope = new Global(context);
 
-  protected void evaluateTest() throws IOException {
-    Context cx = Context.enter();
-    Global globalScope = new Global(cx);
+  private Object json;
 
+  ApigeeContext apigeeContext;
+  ApigeeCrypto apigeeCrypto;
+
+  protected void evaluateTest() throws IOException, InvocationTargetException, IllegalAccessException, InstantiationException {
+    this.apigeeContext = new ApigeeContext();
+    this.apigeeCrypto = new ApigeeCrypto();
+//    ScriptableObject.defineClass(scope, ApigeeContext.class);
+//    ScriptableObject.defineClass(scope, HeaderValues.class);
     // Add apigee context and crypto to scope
-    addObjectToScope("context", context, globalScope);
-    addObjectToScope("crypto", crypto, globalScope);
+    addObjectToScope("context", apigeeContext, scope);
+    addObjectToScope("crypto", apigeeCrypto, scope);
 
     // Run the JS code
-    cx.evaluateReader(globalScope, new FileReader(getTestFile()), getTestFile().getName(), 1, null);
+    context.evaluateReader(scope, new FileReader(getTestFile()), getTestFile().getName(), 1, null);
   }
 
   abstract File getTestFile();

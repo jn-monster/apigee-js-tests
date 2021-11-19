@@ -1,13 +1,16 @@
 package org.example;
 
 import java.io.File;
-import java.io.IOException;
 import org.junit.jupiter.api.Test;
+import org.mozilla.javascript.json.JsonParser.ParseException;
 
 class JsTest extends AbstractJsPolicyTest {
 
+  public JsTest() throws ParseException {
+  }
+
   @Test
-  void test() throws IOException {
+  void test() throws Exception {
     evaluateTest();
   }
 
