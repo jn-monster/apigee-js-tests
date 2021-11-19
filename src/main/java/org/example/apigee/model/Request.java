@@ -1,7 +1,6 @@
 package org.example.apigee.model;
 
-import java.lang.reflect.InvocationTargetException;
-import org.mozilla.javascript.Context;
+import org.example.ApigeeUtils;
 import org.mozilla.javascript.ScriptableObject;
 import org.mozilla.javascript.annotations.JSGetter;
 import org.mozilla.javascript.annotations.JSSetter;
@@ -13,10 +12,8 @@ public class Request extends ScriptableObject {
   private String method;
 //  private RequestBody body;
 
-  public Request() throws InvocationTargetException, IllegalAccessException, InstantiationException {
-    ScriptableObject.defineClass(this, Headers.class);
-    this.headers = (Headers) Context.getCurrentContext().newObject(this, "Headers");
-
+  public Request() {
+    this.headers = ApigeeUtils.createScriptableObject(this, Headers.class);
     this.url = "urlValue";
     this.method = "GET";
   }

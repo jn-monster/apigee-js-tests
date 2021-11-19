@@ -3,7 +3,6 @@ package org.example;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import org.example.apigee.model.ApigeeContext;
 import org.example.apigee.model.ApigeeCrypto;
 import org.mozilla.javascript.Context;
@@ -16,12 +15,11 @@ public abstract class AbstractJsPolicyTest {
   ApigeeContext apigeeContext;
   ApigeeCrypto apigeeCrypto;
 
-  protected void evaluateTest() throws IOException, InvocationTargetException, IllegalAccessException, InstantiationException {
+  protected void evaluateTest() throws IOException {
     Context context = Context.enter();
     ScriptableObject scope = new Global(context);
 
-    ScriptableObject.defineClass(scope, ApigeeContext.class);
-    this.apigeeContext = (ApigeeContext) context.newObject(scope, "ApigeeContext");
+    this.apigeeContext = ApigeeUtils.createScriptableObject(scope, ApigeeContext.class);
     this.apigeeCrypto = new ApigeeCrypto();
 
     // Add apigee context and crypto to scope
