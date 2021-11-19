@@ -1,7 +1,10 @@
 package org.example.apigee.model;
 
-import org.mozilla.javascript.Scriptable;
+import java.lang.reflect.InvocationTargetException;
+import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ScriptableObject;
+import org.mozilla.javascript.annotations.JSGetter;
+import org.mozilla.javascript.annotations.JSSetter;
 
 public class Request extends ScriptableObject {
 
@@ -10,19 +13,42 @@ public class Request extends ScriptableObject {
   private String method;
 //  private RequestBody body;
 
-  public Request() {
-    this.headers = new Headers();
+  public Request() throws InvocationTargetException, IllegalAccessException, InstantiationException {
+    ScriptableObject.defineClass(this, Headers.class);
+    this.headers = (Headers) Context.getCurrentContext().newObject(this, "Headers");
+
     this.url = "urlValue";
     this.method = "GET";
   }
 
-  @Override
-  public Object get(String name, Scriptable start) {
-    if (name.equals("url")) return url;
-    if (name.equals("method")) return method;
-    if (name.equals("headers")) return headers;
+  @JSGetter
+  public String getUrl() {
+    return url;
+  }
 
-    return super.get(name, start);
+  @JSSetter
+  public void setUrl(String url) {
+    this.url = url;
+  }
+
+  @JSGetter
+  public Headers getHeaders() {
+    return headers;
+  }
+
+  @JSSetter
+  public void setHeaders(Headers headers) {
+    this.headers = headers;
+  }
+
+  @JSGetter
+  public String getMethod() {
+    return method;
+  }
+
+  @JSSetter
+  public void setMethod(String method) {
+    this.method = method;
   }
 
   @Override

@@ -3,34 +3,39 @@ package org.example.apigee.model;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import org.example.ApigeeUtils;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
+import org.mozilla.javascript.annotations.JSGetter;
+import org.mozilla.javascript.annotations.JSSetter;
 
 public class Headers extends ScriptableObject {
 
   private Map<String, HeaderValues> headers = new LinkedHashMap<>();
 
   public Headers() {
-    var headerValues = new HeaderValues();
-    headerValues.setHeaderValues(Arrays.asList("bar"));
-    var headerValues2 = new HeaderValues();
-    headerValues2.setHeaderValues(Arrays.asList("bar", "baz"));
+    var headerValues = ApigeeUtils.createScriptableObject(this, HeaderValues.class);
+    var headerValues2 = ApigeeUtils.createScriptableObject(this, HeaderValues.class);
 
+    headerValues.setHeaderValues(Arrays.asList("bar"));
+    headerValues2.setHeaderValues(Arrays.asList("bar", "baz"));
     this.headers.put("foo", headerValues);
     this.headers.put("foo2", headerValues2);
   }
 
-  public long length() {
-    return 321;
+  @JSGetter
+  public Map<String, HeaderValues> getHeaders() {
+    return headers;
   }
 
-  public long jsFunction_length() {
-    return 123;
+  @JSSetter
+  public void setHeaders(Map<String, HeaderValues> headers) {
+    this.headers = headers;
   }
 
   @Override
   public Object get(String name, Scriptable start) {
-    if (name.equals("length")) return super.get(name, start);
+    if (name.equals("HeaderValues")) return super.get(name, start);
 
     return headers.get(name);
   }
@@ -44,4 +49,5 @@ public class Headers extends ScriptableObject {
   public String getClassName() {
     return "Headers";
   }
+
 }

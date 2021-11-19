@@ -1,38 +1,38 @@
 package org.example.apigee.model;
 
+import org.example.ApigeeUtils;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
+import org.mozilla.javascript.annotations.JSGetter;
+import org.mozilla.javascript.annotations.JSSetter;
 
 public class ApigeeContext extends ScriptableObject {
 
   private String flow = "PROXY_REQ_FLOW";
-  private Request targetRequest = new Request();
+  private Request targetRequest;
 
   public ApigeeContext() {
+    this.targetRequest = ApigeeUtils.createScriptableObject(this, Request.class);
   }
 
+  @JSGetter
   public String getFlow() {
     return flow;
   }
 
+  @JSSetter // TODO: is there one?
   public void setFlow(String flow) {
     this.flow = flow;
   }
 
+  @JSGetter
   public Scriptable getTargetRequest() {
     return targetRequest;
   }
 
+  @JSSetter
   public void setTargetRequest(Request targetRequest) {
     this.targetRequest = targetRequest;
-  }
-
-  @Override
-  public Object get(String name, Scriptable start) {
-    if (name.equals("flow")) return flow;
-    if (name.equals("targetRequest")) return targetRequest;
-
-    return super.get(name, start);
   }
 
   @Override

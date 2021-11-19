@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import org.example.apigee.model.ApigeeContext;
 import org.example.apigee.model.ApigeeCrypto;
-import org.example.apigee.model.HeaderValues;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
@@ -14,19 +13,17 @@ import org.mozilla.javascript.tools.shell.Global;
 
 public abstract class AbstractJsPolicyTest {
 
-  public static final Context context = Context.enter();
-  public static final ScriptableObject scope = new Global(context);
-
-  private Object json;
-
   ApigeeContext apigeeContext;
   ApigeeCrypto apigeeCrypto;
 
   protected void evaluateTest() throws IOException, InvocationTargetException, IllegalAccessException, InstantiationException {
-    this.apigeeContext = new ApigeeContext();
+    Context context = Context.enter();
+    ScriptableObject scope = new Global(context);
+
+    ScriptableObject.defineClass(scope, ApigeeContext.class);
+    this.apigeeContext = (ApigeeContext) context.newObject(scope, "ApigeeContext");
     this.apigeeCrypto = new ApigeeCrypto();
-//    ScriptableObject.defineClass(scope, ApigeeContext.class);
-//    ScriptableObject.defineClass(scope, HeaderValues.class);
+
     // Add apigee context and crypto to scope
     addObjectToScope("context", apigeeContext, scope);
     addObjectToScope("crypto", apigeeCrypto, scope);

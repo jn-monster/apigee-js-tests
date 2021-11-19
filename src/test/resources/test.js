@@ -1,4 +1,4 @@
-// print("Javascript testing start...\n");
+print("Javascript testing start...\n");
 
 print(crypto.getSHA1());
 print(context.flow);
@@ -16,9 +16,9 @@ print("Headers[foo2]: " + context.targetRequest.headers["foo2"]);
 // {'foo': ['bar']}
 print("Foo Value[0]: " + context.targetRequest.headers['foo'][0]);  // bar
 print("Foo default Value: " + context.targetRequest.headers['foo']);  // bar
-// print("Foo Length: " + context.targetRequest.headers['foo'].length()); // 1
-// print("Foo Value=== (false): " + context.targetRequest.headers['foo'][0] === 'bar')
-// print("Foo Value== (true): " + context.targetRequest.headers['foo'][0] == 'bar')
+print("Foo Length: " + context.targetRequest.headers['foo'].length()); // 1
+print("Foo Value=== (false): " + context.targetRequest.headers['foo'][0] === 'bar')
+print("Foo Value== (true): " + context.targetRequest.headers['foo'][0] == 'bar')
 print("Foo Value== with '' (true): " + context.targetRequest.headers['foo'] + '' == 'bar');
 
 // {'foo2': ['bar', 'baz']}
@@ -34,6 +34,10 @@ print("Headers[foo2][1]: " + context.targetRequest.headers["foo2"][1]);
 // }
 
 // --------------------------------------
+var length = context.targetRequest.headers['foo'].length();
+print("Headers.length(): " + length);
+print("Headers.length typeof: " + typeof length);
+
 if (context.targetRequest.headers['foo'].length() !== 1) {
   throw new Error('Assert failed: length is not 1');
 }
