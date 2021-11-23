@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import org.example.apigee.model.ApigeeContext;
 import org.example.apigee.model.ApigeeCrypto;
+import org.example.apigee.model.BaseScriptableObject;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
@@ -14,13 +15,14 @@ public abstract class AbstractJsPolicyTest {
 
   public static final Context context = Context.enter();
   public static final ScriptableObject scope = new Global(context);
+  ScriptableFactory factory = new ScriptableFactory(context, scope);
 
   ApigeeContext apigeeContext;
   ApigeeCrypto apigeeCrypto;
 
   protected void evaluateTest() throws IOException {
     this.apigeeContext = ApigeeUtils.createScriptableObject(ApigeeContext.class);
-    this.apigeeCrypto = new ApigeeCrypto();
+    this.apigeeCrypto = BaseScriptableObject.newObject(ApigeeCrypto.class, factory);
 
     // Add apigee context and crypto to scope
     addObjectToScope("context", apigeeContext);
