@@ -17,8 +17,8 @@ import org.mozilla.javascript.tools.shell.Global;
 
 public abstract class AbstractJsPolicyTest {
 
-  public static final Context context = Context.enter();
-  public static final ScriptableObject scope = new Global(context);
+  private final Context context = Context.enter();
+  private final ScriptableObject scope = new Global(context);
   ScriptableFactory factory = new ScriptableFactory(context, scope);
 
   ApigeeContext apigeeContext;

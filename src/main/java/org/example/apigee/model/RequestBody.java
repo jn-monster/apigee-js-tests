@@ -22,4 +22,9 @@ public class RequestBody extends BaseScriptableObject {
   public String getAsForm() {
     return asForm;
   }
+
+  @Override
+  public Object getDefaultValue(Class<?> typeHint) {
+    return super.getDefaultValue(typeHint);
+  }
 }

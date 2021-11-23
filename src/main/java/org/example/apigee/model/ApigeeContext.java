@@ -2,7 +2,6 @@ package org.example.apigee.model;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.annotations.JSFunction;
 import org.mozilla.javascript.annotations.JSGetter;
 
