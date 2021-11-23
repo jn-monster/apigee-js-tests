@@ -2,11 +2,9 @@ package org.example.apigee.model;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.example.ApigeeUtils;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.annotations.JSFunction;
 import org.mozilla.javascript.annotations.JSGetter;
-import org.mozilla.javascript.annotations.JSSetter;
 
 public class ApigeeContext extends BaseScriptableObject {
 
@@ -15,11 +13,6 @@ public class ApigeeContext extends BaseScriptableObject {
   private String flow = "PROXY_REQ_FLOW";
   private Session session;
   private Request targetRequest;
-
-  public ApigeeContext() {
-    this.targetRequest = ApigeeUtils.createScriptableObject(Request.class);
-    this.session = ApigeeUtils.createScriptableObject(Session.class);
-  }
 
   @JSFunction
   public String getVariable(String key) {
@@ -41,27 +34,26 @@ public class ApigeeContext extends BaseScriptableObject {
     return flow;
   }
 
-  @JSSetter // TODO: is there one?
   public void setFlow(String flow) {
     this.flow = flow;
   }
 
   @JSGetter
-  public Scriptable getTargetRequest() {
+  public Request getTargetRequest() {
+    if (targetRequest == null) targetRequest = newObject(Request.class);
     return targetRequest;
   }
 
-  @JSSetter
   public void setTargetRequest(Request targetRequest) {
     this.targetRequest = targetRequest;
   }
 
   @JSGetter
   public Session getSession() {
+    if (session == null) session = newObject(Session.class);
     return session;
   }
 
-  @JSSetter
   public void setSession(Session session) {
     this.session = session;
   }

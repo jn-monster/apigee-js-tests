@@ -10,9 +10,6 @@ public class JsMap extends BaseScriptableObject {
 
   private Map<String, JsMapValues> values = new LinkedHashMap<>();
 
-  public JsMap() {
-  }
-
   @JSGetter
   public Map<String, JsMapValues> getValues() {
     return values;

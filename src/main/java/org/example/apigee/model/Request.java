@@ -1,9 +1,5 @@
 package org.example.apigee.model;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import org.example.ApigeeUtils;
 import org.mozilla.javascript.annotations.JSGetter;
 import org.mozilla.javascript.annotations.JSSetter;
 
@@ -14,30 +10,6 @@ public class Request extends BaseScriptableObject {
   private JsMap queryParams;
   private String method;
   private RequestBody body;
-
-  public Request() {
-    this.headers = ApigeeUtils.createScriptableObject(JsMap.class);
-    this.queryParams = ApigeeUtils.createScriptableObject(JsMap.class);
-    this.body = ApigeeUtils.createScriptableObject(RequestBody.class);
-    this.url = "urlValue";
-    this.method = "GET";
-
-    // init for testing
-    Map<String, JsMapValues> headerValues = new HashMap<>();
-    var headerValues1 = ApigeeUtils.createScriptableObject(JsMapValues.class);
-    var headerValues2 = ApigeeUtils.createScriptableObject(JsMapValues.class);
-    headerValues1.setValues(Arrays.asList("bar"));
-    headerValues2.setValues(Arrays.asList("bar", "baz"));
-    headerValues.put("foo", headerValues1);
-    headerValues.put("foo2", headerValues2);
-    headers.setValues(headerValues);
-
-    Map<String, JsMapValues> queryParamsValues = new HashMap<>();
-    var queryParamValues1 = ApigeeUtils.createScriptableObject(JsMapValues.class);
-    queryParamValues1.setValues(Arrays.asList("PaloAlto", "NewYork"));
-    queryParamsValues.put("city", queryParamValues1);
-    queryParams.setValues(queryParamsValues);
-  }
 
   @JSGetter
   public String getUrl() {
@@ -51,6 +23,7 @@ public class Request extends BaseScriptableObject {
 
   @JSGetter
   public JsMap getHeaders() {
+    if (headers == null) headers = newObject(JsMap.class);
     return headers;
   }
 
@@ -61,6 +34,7 @@ public class Request extends BaseScriptableObject {
 
   @JSGetter
   public JsMap getQueryParams() {
+    if (queryParams == null) queryParams = newObject(JsMap.class);
     return queryParams;
   }
 
@@ -81,6 +55,7 @@ public class Request extends BaseScriptableObject {
 
   @JSGetter
   public RequestBody getBody() {
+    if (body == null) body = newObject(RequestBody.class);
     return body;
   }
 
