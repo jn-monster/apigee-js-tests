@@ -3,7 +3,7 @@ package org.example.apigee.model;
 import org.example.engine.model.BaseScriptableObject;
 import org.mozilla.javascript.annotations.JSFunction;
 
-public class ApigeeCrypto extends BaseScriptableObject {
+public class Crypto extends BaseScriptableObject {
 
   @JSFunction
   public String getSHA1() {

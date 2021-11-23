@@ -6,7 +6,7 @@ import org.example.engine.model.BaseScriptableObject;
 import org.mozilla.javascript.annotations.JSFunction;
 import org.mozilla.javascript.annotations.JSGetter;
 
-public class ApigeeContext extends BaseScriptableObject {
+public class Context extends BaseScriptableObject {
 
   private Map<String, String> variables = new HashMap<>();
 
