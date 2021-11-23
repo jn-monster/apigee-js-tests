@@ -1,6 +1,7 @@
 package org.example.apigee.model;
 
 import java.util.List;
+import org.example.engine.model.BaseScriptableObject;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.annotations.JSFunction;
 import org.mozilla.javascript.annotations.JSGetter;

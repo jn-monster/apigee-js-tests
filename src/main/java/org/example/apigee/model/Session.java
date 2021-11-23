@@ -2,6 +2,7 @@ package org.example.apigee.model;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import org.example.engine.model.BaseScriptableObject;
 import org.mozilla.javascript.Scriptable;
 
 public class Session extends BaseScriptableObject {

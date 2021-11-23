@@ -1,32 +1,28 @@
 package org.example.apigee.model;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import org.example.engine.model.BaseScriptableObject;
 import org.mozilla.javascript.Scriptable;
-import org.mozilla.javascript.annotations.JSGetter;
-import org.mozilla.javascript.annotations.JSSetter;
 
 public class JsMap extends BaseScriptableObject {
 
-  private Map<String, JsMapValues> values = new LinkedHashMap<>();
+  private Map<String, JsMapValues> mapValues = new LinkedHashMap<>();
 
-  @JSGetter
-  public Map<String, JsMapValues> getValues() {
-    return values;
-  }
-
-  @JSSetter
-  public void setValues(Map<String, JsMapValues> values) {
-    this.values = values;
+  public void setValues(String key , List<Object> values) {
+    var mapValue = newObject(JsMapValues.class);
+    mapValue.setValues(values);
+    this.mapValues.put(key, mapValue);
   }
 
   @Override
   public Object get(String name, Scriptable start) {
-    return values.get(name);
+    return mapValues.get(name);
   }
 
   @Override
   public Object getDefaultValue(Class<?> typeHint) {
-    return values;
+    return mapValues;
   }
 }

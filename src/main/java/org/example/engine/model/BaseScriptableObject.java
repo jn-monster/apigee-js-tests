@@ -1,6 +1,6 @@
-package org.example.apigee.model;
+package org.example.engine.model;
 
-import org.example.ScriptableFactory;
+import org.example.engine.ScriptableFactory;
 import org.mozilla.javascript.ScriptableObject;
 
 public class BaseScriptableObject extends ScriptableObject {
