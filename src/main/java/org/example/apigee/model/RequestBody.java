@@ -5,27 +5,30 @@ import org.mozilla.javascript.annotations.JSGetter;
 
 public class RequestBody extends BaseScriptableObject {
 
-  private String asXML;
-  private String asJSON;
-  private String asForm;
+  private RequestBodyMember asXML;
+  private RequestBodyMember asJSON;
+  private RequestBodyMember asForm;
 
   @JSGetter
-  public String getAsXML() {
+  public RequestBodyMember getAsXML() {
+    if (asXML == null) asXML = newObject(RequestBodyMember.class);
     return asXML;
   }
 
   @JSGetter
-  public String getAsJSON() {
+  public RequestBodyMember getAsJSON() {
+    if (asJSON == null) asJSON = newObject(RequestBodyMember.class);
     return asJSON;
   }
 
   @JSGetter
-  public String getAsForm() {
+  public RequestBodyMember getAsForm() {
+    if (asForm == null) asForm = newObject(RequestBodyMember.class);
     return asForm;
   }
 
   @Override
   public Object getDefaultValue(Class<?> typeHint) {
-    return super.getDefaultValue(typeHint);
+    throw new UnsupportedOperationException("Not implemented yet");
   }
 }

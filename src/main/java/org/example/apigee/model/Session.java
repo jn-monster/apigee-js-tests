@@ -17,4 +17,9 @@ public class Session extends BaseScriptableObject {
   public void put(String name, Scriptable start, Object value) {
     this.variables.put(name, value);
   }
+
+  @Override
+  public Object getDefaultValue(Class<?> typeHint) {
+    return this.variables;
+  }
 }

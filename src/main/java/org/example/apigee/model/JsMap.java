@@ -1,6 +1,6 @@
 package org.example.apigee.model;
 
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.example.engine.model.BaseScriptableObject;
@@ -8,7 +8,7 @@ import org.mozilla.javascript.Scriptable;
 
 public class JsMap extends BaseScriptableObject {
 
-  private Map<String, JsMapValues> mapValues = new LinkedHashMap<>();
+  private Map<String, JsMapValues> mapValues = new HashMap<>();
 
   public void setValues(String key , List<Object> values) {
     var mapValue = newObject(JsMapValues.class);
@@ -23,6 +23,6 @@ public class JsMap extends BaseScriptableObject {
 
   @Override
   public Object getDefaultValue(Class<?> typeHint) {
-    return mapValues;
+    return mapValues.toString();
   }
 }

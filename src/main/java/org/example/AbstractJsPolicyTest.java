@@ -1,7 +1,6 @@
 package org.example;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 import org.example.apigee.model.Context;
 import org.example.apigee.model.Crypto;
@@ -22,28 +21,10 @@ public abstract class AbstractJsPolicyTest {
     engine.registerGlobalScopeObjects(Arrays.asList(new Tuple<>("context", context), new Tuple<>("crypto", crypto)));
   }
 
-  protected void evaluateTest() throws IOException {
-    // Init test data for now
-    initTestData();
-
+  protected void evaluateTest() {
     // Run the JS code
     engine.eval(getTestFile());
   }
 
   abstract File getTestFile();
-
-  private void initTestData() {
-    context.getTargetRequest().setMethod("GET");
-    context.getTargetRequest().setUrl("http://someurl.com");
-
-    var headers = context.getTargetRequest().getHeaders();
-    headers.setValues("foo", Arrays.asList("bar"));
-    headers.setValues("foo2", Arrays.asList("bar", "baz"));
-
-    var queryParams = context.getTargetRequest().getQueryParams();
-    queryParams.setValues("city", Arrays.asList("PaloAlto", "NewYork"));
-
-    context.getSession().put("foo", null, "bar");
-    context.getSession().put("foo2", null, 123);
-  }
 }

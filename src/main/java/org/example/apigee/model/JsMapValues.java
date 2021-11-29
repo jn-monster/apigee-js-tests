@@ -1,19 +1,14 @@
 package org.example.apigee.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.example.engine.model.BaseScriptableObject;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.annotations.JSFunction;
-import org.mozilla.javascript.annotations.JSGetter;
 
 public class JsMapValues extends BaseScriptableObject {
 
-  private List<Object> values;
-
-  @JSGetter
-  public List<Object> getValues() {
-    return values;
-  }
+  private List<Object> values = new ArrayList<>();
 
   public void setValues(List<Object> values) {
     this.values = values;
