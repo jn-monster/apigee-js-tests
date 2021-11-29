@@ -5,6 +5,8 @@ import org.mozilla.javascript.annotations.JSGetter;
 
 public class ResponseShortcut extends BaseScriptableObject {
 
+  private Context context;
+
   @JSGetter
   public JsMap getHeaders() {
     return getWrappedResponse().getHeaders();
@@ -21,8 +23,6 @@ public class ResponseShortcut extends BaseScriptableObject {
   }
 
   private Response getWrappedResponse() {
-    var scope = getFactory().getScope();
-    var context = (Context) scope.get("context", scope);
     switch (context.getFlow()) {
       case "PROXY_RESP_FLOW":
         return context.getProxyResponse();
@@ -31,5 +31,9 @@ public class ResponseShortcut extends BaseScriptableObject {
       default:
         throw new IllegalStateException("Unknown Response Flow specified");
     }
+  }
+
+  public void setContext(Context context) {
+    this.context = context;
   }
 }

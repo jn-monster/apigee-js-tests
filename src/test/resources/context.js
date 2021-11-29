@@ -3,7 +3,7 @@ const errors = [];
 // context.get/set/removeVariable()
 var newContextObjectVariableName = 'new.context.object.variable';
 var newContextObjectVariableValue = {'x': 1};
-context.setVariable(newContextObjectVariableName, newContextObjectVariableValue)
+context.setVariable(newContextObjectVariableName, newContextObjectVariableValue);
 if (context.getVariable(newContextObjectVariableName) === undefined) {
   errors.push("'context.getVariable('" + newContextObjectVariableName + "')' was expected to be found in the variables but was not.");
 }
@@ -13,7 +13,7 @@ if (context.getVariable(newContextObjectVariableName) != newContextObjectVariabl
 
 var newContextStringVariableName = 'new.context.string.variable';
 var newContextStringVariableValue = "string-value";
-context.setVariable(newContextStringVariableName, newContextStringVariableValue)
+context.setVariable(newContextStringVariableName, newContextStringVariableValue);
 if (context.getVariable(newContextStringVariableName) === undefined) {
   errors.push("'context.getVariable('" + newContextStringVariableName + "')' was expected to be found in the variables but was not.");
 }
@@ -23,7 +23,7 @@ if (context.getVariable(newContextStringVariableName) !== newContextStringVariab
 
 var newContextNumberVariableName = 'new.context.number.variable';
 var newContextNumberVariableValue = 123;
-context.setVariable(newContextNumberVariableName, newContextNumberVariableValue)
+context.setVariable(newContextNumberVariableName, newContextNumberVariableValue);
 if (context.getVariable(newContextNumberVariableName) === undefined) {
   errors.push("'context.getVariable('" + newContextNumberVariableName + "')' was expected to be found in the variables but was not.");
 }
@@ -86,7 +86,6 @@ const proxyRequestUrlExpectedValue = 'http://someurl.com';
 if (context.proxyRequest.url !== proxyRequestUrlExpectedValue) {
   errors.push("'context.proxyRequest.url' is expected to be '" + proxyRequestUrlExpectedValue + "' but was '" + context.proxyRequest.url + "'");
 }
-
 if (request.url !== proxyRequestUrlExpectedValue) {
   errors.push("'request.url' is expected to be '" + proxyRequestUrlExpectedValue + "' but was '" + request.url + "'");
 }
@@ -94,12 +93,15 @@ if (request.url !== proxyRequestUrlExpectedValue) {
 // context.proxyRequest.method
 const proxyRequestMethodType = typeof context.proxyRequest.method;
 if (proxyRequestMethodType !== 'string') {
-  errors.push("'context.proxyRequest.url' is expected to be of type 'string' but is '" + proxyRequestMethodType + "'");
+  errors.push("'context.proxyRequest.method' is expected to be of type 'string' but is '" + proxyRequestMethodType + "'");
 }
 
 const proxyRequestMethodExpectedValue = 'GET';
 if (context.proxyRequest.method !== proxyRequestMethodExpectedValue) {
   errors.push("'context.proxyRequest.method' is expected to be '" + proxyRequestMethodExpectedValue + "' but was '" + context.proxyRequest.method + "'");
+}
+if (request.method !== proxyRequestMethodExpectedValue) {
+  errors.push("'request.method' is expected to be '" + proxyRequestMethodExpectedValue + "' but was '" + request.method + "'");
 }
 
 // context.proxyRequest.queryParams

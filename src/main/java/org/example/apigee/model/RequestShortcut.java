@@ -5,6 +5,8 @@ import org.mozilla.javascript.annotations.JSGetter;
 
 public class RequestShortcut extends BaseScriptableObject {
 
+  private Context context;
+
   @JSGetter
   public String getUrl() {
     return getWrappedRequest().getUrl();
@@ -31,15 +33,17 @@ public class RequestShortcut extends BaseScriptableObject {
   }
 
   private Request getWrappedRequest() {
-    var scope = getFactory().getScope();
-    var context = (Context) scope.get("context", scope);
-    switch (context.getFlow()) {
+    switch (this.context.getFlow()) {
       case "PROXY_REQ_FLOW":
-        return context.getProxyRequest();
+        return this.context.getProxyRequest();
       case "TARGET_REQ_FLOW":
-        return  context.getTargetRequest();
+        return  this.context.getTargetRequest();
       default:
         throw new IllegalStateException("Unknown Request Flow specified");
     }
+  }
+
+  public void setContext(Context context) {
+    this.context = context;
   }
 }
