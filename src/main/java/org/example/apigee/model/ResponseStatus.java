@@ -5,16 +5,24 @@ import org.mozilla.javascript.annotations.JSGetter;
 
 public class ResponseStatus extends BaseScriptableObject {
 
-  private Integer code;
+  private String code;
   private String message;
 
   @JSGetter
-  public Integer getCode() {
+  public String getCode() {
     return code;
+  }
+
+  public void setCode(String code) {
+    this.code = code;
   }
 
   @JSGetter
   public String getMessage() {
     return message;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
   }
 }

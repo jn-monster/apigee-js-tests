@@ -18,7 +18,12 @@ public abstract class AbstractJsPolicyTest {
     this.engine = new RhinoEngine();
     this.context = BaseScriptableObject.newObject(Context.class, engine);
     this.crypto = BaseScriptableObject.newObject(Crypto.class, engine);
-    engine.registerGlobalScopeObjects(Arrays.asList(new Tuple<>("context", context), new Tuple<>("crypto", crypto)));
+    engine.registerGlobalScopeObjects(
+        Arrays.asList(
+            new Tuple<>("context", context),
+            new Tuple<>("crypto", crypto)
+        )
+    );
   }
 
   protected void evaluateTest() {

@@ -14,15 +14,24 @@ class ContextTest extends AbstractJsPolicyTest {
     context.getProxyRequest().setMethod("GET");
     context.getProxyRequest().setUrl("http://someurl.com");
 
-    var headers = context.getProxyRequest().getHeaders();
-    headers.setValues("foo", Arrays.asList("bar"));
-    headers.setValues("foo2", Arrays.asList("bar", "baz"));
+    var requestHeaders = context.getProxyRequest().getHeaders();
+    requestHeaders.setValues("foo", Arrays.asList("bar"));
+    requestHeaders.setValues("foo2", Arrays.asList("bar", "baz"));
 
     var queryParams = context.getProxyRequest().getQueryParams();
     queryParams.setValues("city", Arrays.asList("PaloAlto", "NewYork"));
 
     context.getSession().put("foo", null, "bar");
     context.getSession().put("foo2", null, 123);
+
+    var responseHeaders = context.getTargetResponse().getHeaders();
+    responseHeaders.setValues("response-foo", Arrays.asList("response-bar"));
+    responseHeaders.setValues("response-foo2", Arrays.asList("response-bar", "response-baz"));
+
+    var responseStatus = context.getTargetResponse().getStatus();
+    responseStatus.setCode("200");
+    responseStatus.setMessage("OK");
+
 
     try {
       // Act

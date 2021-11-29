@@ -87,6 +87,10 @@ if (context.proxyRequest.url !== proxyRequestUrlExpectedValue) {
   errors.push("'context.proxyRequest.url' is expected to be '" + proxyRequestUrlExpectedValue + "' but was '" + context.proxyRequest.url + "'");
 }
 
+if (request.url !== proxyRequestUrlExpectedValue) {
+  errors.push("'request.url' is expected to be '" + proxyRequestUrlExpectedValue + "' but was '" + request.url + "'");
+}
+
 // context.proxyRequest.method
 const proxyRequestMethodType = typeof context.proxyRequest.method;
 if (proxyRequestMethodType !== 'string') {
@@ -166,7 +170,6 @@ if ((context.proxyRequest.headers['foo'][0] + '') !== proxyRequestHeadersFoo_0_E
 
 if (context.proxyRequest.headers['foo'][0] != proxyRequestHeadersFoo_0_ExpectedValue) {
   errors.push("'context.proxyRequest.headers['foo'][0]' is expected to be '" + proxyRequestHeadersFoo_0_ExpectedValue + "' but was '" + context.proxyRequest.headers['foo'][0] + "'");
-
 }
 
 // {'foo2': ['bar', 'baz']}
@@ -196,8 +199,91 @@ if (context.proxyRequest.headers['foo2'][1] !== proxyRequestHeadersFoo2_1_Expect
 // print(context.proxyRequest.body.asJSON);
 // print(context.proxyRequest.body.asForm);
 
-//TODO: context.proxyResponse.headers
+// context.targetResponse.headers
+const targetResponseHeadersType = typeof context.targetResponse.headers;
+if (targetResponseHeadersType !== 'object') {
+  errors.push("'context.targetResponse.headers' is expected to be of type 'object' but is '" + targetResponseHeadersType + "'");
+}
 
+if (context.targetResponse.headers[0] !== undefined) {
+  errors.push("'context.targetResponse.headers[0]' is expected to be undefined but is '" + context.targetResponse.headers[0] + "'");
+}
+
+const targetResponseHeadersExpectedDefaultValue = '{response-foo=response-bar, response-foo2=response-bar}';
+if (context.targetResponse.headers != targetResponseHeadersExpectedDefaultValue) {
+  errors.push("'context.targetResponse.headers' is expected to be '" + targetResponseHeadersExpectedDefaultValue + "' but was '" + context.targetResponse.headers + "'");
+}
+
+// {'response-foo': ['response-bar']}
+const targetResponseHeadersFooExpectedLength = 1;
+if (context.targetResponse.headers['response-foo'].length() !== targetResponseHeadersFooExpectedLength) {
+  errors.push("'context.targetResponse.headers['response-foo'].length()' is expected to be '" + targetResponseHeadersFooExpectedLength + "' but was '" + context.targetResponse.headers['response-foo'].length() + "'");
+}
+
+const targetResponseHeadersFooExpectedValue = 'response-bar';
+if (context.targetResponse.headers['response-foo'] != targetResponseHeadersFooExpectedValue) {
+  errors.push("'context.targetResponse.headers['response-foo']' is expected to be '" + targetResponseHeadersFooExpectedValue + "' but was '" + context.targetResponse.headers['response-foo'] + "'");
+}
+
+const targetResponseHeadersFoo_0_ExpectedValue = 'response-bar';
+if (context.targetResponse.headers['response-foo'][0] !== targetResponseHeadersFoo_0_ExpectedValue) {
+  errors.push("'context.targetResponse.headers['response-foo'][0]' is expected to be '" + targetResponseHeadersFoo_0_ExpectedValue + "' but was '" + context.targetResponse.headers['response-foo'][0] + "'");
+}
+
+if ((context.targetResponse.headers['response-foo'][0] + '') !== targetResponseHeadersFoo_0_ExpectedValue) {
+  errors.push("'context.targetResponse.headers['response-foo'][0]' is expected to be '" + targetResponseHeadersFoo_0_ExpectedValue + "' but was '" + context.targetResponse.headers['response-foo'][0] + "'");
+}
+
+if (context.targetResponse.headers['response-foo'][0] != targetResponseHeadersFoo_0_ExpectedValue) {
+  errors.push("'context.targetResponse.headers['response-foo'][0]' is expected to be '" + targetResponseHeadersFoo_0_ExpectedValue + "' but was '" + context.targetResponse.headers['response-foo'][0] + "'");
+}
+
+// {'response-foo2': ['response-bar', 'response-baz']}
+const targetResponseHeadersFoo2ExpectedLength = 2;
+if (context.targetResponse.headers['response-foo2'].length() !== targetResponseHeadersFoo2ExpectedLength) {
+  errors.push("'context.targetResponse.headers['response-foo2'].length()' is expected to be '" + targetResponseHeadersFoo2ExpectedLength + "' but was '" + context.targetResponse.headers['response-foo2'].length() + "'");
+}
+
+const targetResponseHeadersFoo2ExpectedValue = 'response-bar';
+if (context.targetResponse.headers['response-foo2'] != targetResponseHeadersFoo2ExpectedValue) {
+  errors.push("'context.targetResponse.headers['response-foo2']' is expected to be '" + targetResponseHeadersFoo2ExpectedValue + "' but was '" + context.targetResponse.headers['response-foo2'] + "'");
+}
+
+const targetResponseHeadersFoo2_0_ExpectedValue = 'response-bar';
+if (context.targetResponse.headers['response-foo2'][0] !== targetResponseHeadersFoo2_0_ExpectedValue) {
+  errors.push("'context.targetResponse.headers['response-foo2'][0]' is expected to be '" + targetResponseHeadersFoo2_0_ExpectedValue + "' but was '" + context.targetResponse.headers['response-foo2'][0] + "'");
+}
+
+const targetResponseHeadersFoo2_1_ExpectedValue = 'response-baz';
+if (context.targetResponse.headers['response-foo2'][1] !== targetResponseHeadersFoo2_1_ExpectedValue) {
+  errors.push("'context.targetResponse.headers['response-foo2'][1]' is expected to be '" + targetResponseHeadersFoo2_1_ExpectedValue + "' but was '" + context.targetResponse.headers['response-foo2'][1] + "'");
+}
+
+// context.targetResponse.status
+const targetResponseStatusCodeType = typeof context.targetResponse.status.code;
+if (targetResponseStatusCodeType !== 'string') {
+  errors.push("'context.targetResponse.status.code' is expected to be of type 'number' but is '" + targetResponseStatusCodeType + "'");
+}
+
+const targetResponseStatusCodeExpectedValue = "200";
+if (context.targetResponse.status.code !== targetResponseStatusCodeExpectedValue) {
+  errors.push("'context.targetResponse.status.code' is expected to be '" + targetResponseStatusCodeExpectedValue + "' but was '" + context.targetResponse.status.code + "'");
+}
+
+const targetResponseStatusMessageType = typeof context.targetResponse.status.message;
+if (targetResponseStatusMessageType !== 'string') {
+  errors.push("'context.targetResponse.status.message' is expected to be of type 'string' but is '" + targetResponseStatusMessageType + "'");
+}
+
+const targetResponseStatusMessageExpectedValue = "OK";
+if (context.targetResponse.status.message !== targetResponseStatusMessageExpectedValue) {
+  errors.push("'context.targetResponse.status.message' is expected to be '" + targetResponseStatusMessageExpectedValue + "' but was '" + context.targetResponse.status.message + "'");
+}
+
+// TODO: PROXY RESPONSE CONTENT -> Unsupported at the moment
+// print(context.targetResponse.content);
+// print(context.targetResponse.content.asXML);
+// print(context.targetResponse.content.asJSON);
 
 // Evaluate errors
 throw new Error(errors.length ? "Assertion failed: \n\t" + errors.join('\n\t') : 'Test succeeded');

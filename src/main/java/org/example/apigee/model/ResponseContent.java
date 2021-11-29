@@ -5,17 +5,23 @@ import org.mozilla.javascript.annotations.JSGetter;
 
 public class ResponseContent extends BaseScriptableObject {
 
-  private String asXML;
-  private String asJSON;
-  private String asForm;
+  private ResponseContentMember asXML;
+  private ResponseContentMember asJSON;
 
   @JSGetter
-  public String getAsXML() {
+  public ResponseContentMember getAsXML() {
+    if (asXML == null) asXML = newObject(ResponseContentMember.class);
     return asXML;
   }
 
   @JSGetter
-  public String getAsJSON() {
+  public ResponseContentMember getAsJSON() {
+    if (asJSON == null) asJSON = newObject(ResponseContentMember.class);
     return asJSON;
+  }
+
+  @Override
+  public Object getDefaultValue(Class<?> typeHint) {
+    throw new UnsupportedOperationException("Not implemented yet");
   }
 }
