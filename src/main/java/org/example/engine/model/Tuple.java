@@ -1,10 +1,10 @@
 package org.example.engine.model;
 
 public class Tuple<X, Y> {
-  public final X x;
-  public final Y y;
-  public Tuple(X x, Y y) {
-    this.x = x;
-    this.y = y;
+  public final X key;
+  public final Y value;
+  public Tuple(X key, Y value) {
+    this.key = key;
+    this.value = value;
   }
 } 

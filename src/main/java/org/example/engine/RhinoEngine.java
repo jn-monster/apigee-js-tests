@@ -33,7 +33,7 @@ public class RhinoEngine implements ScriptableFactory {
   }
 
   public void registerGlobalScopeObjects(List<Tuple<String, Scriptable>> globalScopeObjects) {
-    globalScopeObjects.forEach(globalScopeObject -> scope.put(globalScopeObject.x, scope, globalScopeObject.y));
+    globalScopeObjects.forEach(globalScopeObject -> scope.put(globalScopeObject.key, scope, globalScopeObject.value));
   }
 
   @Override
@@ -54,5 +54,9 @@ public class RhinoEngine implements ScriptableFactory {
     }
 
     return (T) this.context.newObject(this.scope, className);
+  }
+
+  public ScriptableObject getScope() {
+    return scope;
   }
 }

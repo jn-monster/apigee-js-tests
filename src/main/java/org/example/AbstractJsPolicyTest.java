@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Arrays;
 import org.example.apigee.model.Context;
 import org.example.apigee.model.Crypto;
+import org.example.apigee.model.RequestShortcut;
 import org.example.engine.RhinoEngine;
 import org.example.engine.model.BaseScriptableObject;
 import org.example.engine.model.Tuple;
@@ -21,7 +22,8 @@ public abstract class AbstractJsPolicyTest {
     engine.registerGlobalScopeObjects(
         Arrays.asList(
             new Tuple<>("context", context),
-            new Tuple<>("crypto", crypto)
+            new Tuple<>("crypto", crypto),
+            new Tuple<>("request", BaseScriptableObject.newObject(RequestShortcut.class, engine))
         )
     );
   }
