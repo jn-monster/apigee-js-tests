@@ -6,35 +6,24 @@ import org.mozilla.javascript.annotations.JSFunction;
 
 public class Crypto extends BaseScriptableObject {
 
-  private CryptoHashObject sha1;
-  private CryptoHashObject sha256;
-  private CryptoHashObject sha512;
-  private CryptoHashObject md5;
-
-  private String dateFormat;
-
   @JSFunction
   public CryptoHashObject getSHA1() {
-    if (sha1 == null) sha1 = newObject(CryptoHashObject.class);
-    return sha1;
+    throw new UnsupportedOperationException("Call 'useCryptoSha1()' in tests to get SHA1 reference.");
   }
 
   @JSFunction
   public CryptoHashObject getSHA256() {
-    if (sha256 == null) sha256 = newObject(CryptoHashObject.class);
-    return sha256;
+    throw new UnsupportedOperationException("Call 'useCryptoSha256()' in tests to get SHA256 reference.");
   }
 
   @JSFunction
   public CryptoHashObject getSHA512() {
-    if (sha512 == null) sha512 = newObject(CryptoHashObject.class);
-    return sha512;
+    throw new UnsupportedOperationException("Call 'useCryptoSha512()' in tests to get SHA512 reference.");
   }
 
   @JSFunction
   public CryptoHashObject getMD5() {
-    if (md5 == null) md5 = newObject(CryptoHashObject.class);
-    return md5;
+    throw new UnsupportedOperationException("Call 'useCryptoMd5()' in tests to get MD5 reference.");
   }
 
   @JSFunction
@@ -56,20 +45,6 @@ public class Crypto extends BaseScriptableObject {
   // DateFormat
   @JSFunction
   public String dateFormat(Scriptable format, Scriptable timezone, Scriptable unixTimeStamp) {
-    return this.dateFormat;
-  }
-
-  public void setDigest(String hashName, String digest) {
-    var hash = getHash(hashName);
-    hash.setDigest(digest);
-  }
-
-  public void setDigest64(String hashName, String digest64) {
-    var hash = getHash(hashName);
-    hash.setDigest64(digest64);
-  }
-
-  public void setDateFormat(String dateFormat) {
-    this.dateFormat = dateFormat;
+    throw new UnsupportedOperationException("Mock the 'dateFormat()' call through Mockito.");
   }
 }

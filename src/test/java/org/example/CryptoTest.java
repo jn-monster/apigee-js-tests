@@ -1,8 +1,13 @@
 package org.example;
 
+import static org.mockito.Mockito.*;
+
 import java.io.File;
+import org.example.apigee.model.Crypto;
+import org.example.apigee.model.CryptoHashObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.mozilla.javascript.JavaScriptException;
 
 class CryptoTest extends AbstractJsPolicyTest {
@@ -11,11 +16,15 @@ class CryptoTest extends AbstractJsPolicyTest {
   void test() throws Exception {
     try {
       // Arrange
-      crypto.getSHA1().setDigest("(Digested) something");
-      crypto.getSHA1().setDigest64("(Digested64) something");
+      CryptoHashObject sha1 = useCryptoSha1();
+      when(sha1.digest()).thenReturn("(Digested) something");
+      when(sha1.digest64()).thenReturn("(Digested64) something");
 
       // Act
       evaluateTest();
+
+      verify(sha1).digest();
+      verify(sha1).digest64();
     } catch (JavaScriptException jex) {
       // Assert
       var errorMessage = jex.getMessage();

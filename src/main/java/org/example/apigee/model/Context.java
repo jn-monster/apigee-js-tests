@@ -47,10 +47,18 @@ public class Context extends BaseScriptableObject {
     return proxyRequest;
   }
 
+  public void setProxyRequest(Request proxyRequest) {
+    this.proxyRequest = proxyRequest;
+  }
+
   @JSGetter
   public Request getTargetRequest() {
     if (targetRequest == null) targetRequest = newObject(Request.class);
     return targetRequest;
+  }
+
+  public void setTargetRequest(Request targetRequest) {
+    this.targetRequest = targetRequest;
   }
 
   @JSGetter
@@ -59,14 +67,18 @@ public class Context extends BaseScriptableObject {
     return proxyResponse;
   }
 
+  public void setProxyResponse(Response proxyResponse) {
+    this.proxyResponse = proxyResponse;
+  }
+
   @JSGetter
   public Response getTargetResponse() {
     if (targetResponse == null) targetResponse = newObject(Response.class);
     return targetResponse;
   }
 
-  public void setTargetRequest(Request targetRequest) {
-    this.targetRequest = targetRequest;
+  public void setTargetResponse(Response targetResponse) {
+    this.targetResponse = targetResponse;
   }
 
   @JSGetter

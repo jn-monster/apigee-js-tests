@@ -8,6 +8,10 @@ import org.mozilla.javascript.Scriptable;
 public class Session extends BaseScriptableObject {
   private Map<String, Object> variables = new LinkedHashMap<>();
 
+  public void setValue(String key, Object value) {
+    this.variables.put(key, value);
+  }
+
   @Override
   public Object get(String name, Scriptable start) {
     return variables.get(name);
