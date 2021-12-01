@@ -86,9 +86,11 @@ const proxyRequestUrlExpectedValue = 'http://someurl.com';
 if (context.proxyRequest.url !== proxyRequestUrlExpectedValue) {
   errors.push("'context.proxyRequest.url' is expected to be '" + proxyRequestUrlExpectedValue + "' but was '" + context.proxyRequest.url + "'");
 }
-if (request.url !== proxyRequestUrlExpectedValue) {
-  errors.push("'request.url' is expected to be '" + proxyRequestUrlExpectedValue + "' but was '" + request.url + "'");
-}
+
+// TODO: Shorthands
+// if (request.url !== proxyRequestUrlExpectedValue) {
+//   errors.push("'request.url' is expected to be '" + proxyRequestUrlExpectedValue + "' but was '" + request.url + "'");
+// }
 
 // context.proxyRequest.method
 const proxyRequestMethodType = typeof context.proxyRequest.method;
@@ -100,9 +102,11 @@ const proxyRequestMethodExpectedValue = 'GET';
 if (context.proxyRequest.method !== proxyRequestMethodExpectedValue) {
   errors.push("'context.proxyRequest.method' is expected to be '" + proxyRequestMethodExpectedValue + "' but was '" + context.proxyRequest.method + "'");
 }
-if (request.method !== proxyRequestMethodExpectedValue) {
-  errors.push("'request.method' is expected to be '" + proxyRequestMethodExpectedValue + "' but was '" + request.method + "'");
-}
+
+// TODO: Shorthands
+// if (request.method !== proxyRequestMethodExpectedValue) {
+//   errors.push("'request.method' is expected to be '" + proxyRequestMethodExpectedValue + "' but was '" + request.method + "'");
+// }
 
 // context.proxyRequest.queryParams
 const proxyRequestQueryParamsType = typeof context.proxyRequest.queryParams;

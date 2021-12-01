@@ -5,6 +5,7 @@ import static org.mockito.Mockito.spy;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.List;
 import org.example.apigee.model.Context;
 import org.example.apigee.model.Crypto;
 import org.example.apigee.model.CryptoHashObject;
@@ -41,108 +42,112 @@ public abstract class AbstractJsPolicyTest {
     engine.eval(getTestFile());
   }
 
-//  private void initContext(Flow flow) {
-//    if (this.context != null) return;
-//    this.context = BaseScriptableObject.newObject(Context.class, engine);
-//    this.context.setFlow(flow.name());
-//    this.mocks.context = spy(this.context);
-//  }
-//
-//  public Context useContext(Flow flow) {
-//    initContext(flow);
-//    return this.context;
-//  }
-//
-//  public void setContextVariable(String key, Object value) {
-//    this.context.setVariable(key, value);
-//  }
-//
-//  public Request useContextProxyRequest() {
-//    checkContextInitialized("useContextProxyRequest()");
-//    if (this.proxyRequest == null) {
-//      this.proxyRequest = BaseScriptableObject.newObject(Request.class, engine);
-//      this.mocks.proxyRequest = spy(this.proxyRequest);
-//      this.context.setProxyRequest(this.proxyRequest);
-//    }
-//    return this.proxyRequest;
-//  }
-//
-//  public void setContextProxyRequestHeader(String key , List<Object> values) {
-//    checkContextInitialized("setContextProxyRequestHeader()");
-//    Request request = useContextProxyRequest();
-//    request.getHeaders().setValues(key, values);
-//  }
-//
-//  public Request useContextTargetRequest() {
-//    checkContextInitialized("useContextTargetRequest()");
-//    if (this.targetRequest == null) {
-//      this.targetRequest = BaseScriptableObject.newObject(Request.class, engine);
-//      this.mocks.targetRequest = spy(this.targetRequest);
-//      this.context.setTargetRequest(this.targetRequest);
-//    }
-//    return this.proxyRequest;
-//  }
-//
-//  public void setContextTargetRequestHeader(String key , List<Object> values) {
-//    checkContextInitialized("setContextTargetRequestHeader()");
-//    Request request = useContextTargetRequest();
-//    request.getHeaders().setValues(key, values);
-//  }
-//
-//  public Response useContextProxyResponse() {
-//    checkContextInitialized("useContextProxyResponse()");
-//    if (this.proxyResponse == null) {
-//      this.proxyResponse = BaseScriptableObject.newObject(Response.class, engine);
-//      this.mocks.proxyResponse = spy(this.proxyResponse);
-//      this.context.setProxyResponse(this.proxyResponse);
-//    }
-//    return this.proxyResponse;
-//  }
-//
-//  public void setContextProxyResponseHeader(String key , List<Object> values) {
-//    checkContextInitialized("setContextProxyResponseHeader()");
-//    Response response = useContextProxyResponse();
-//    response.getHeaders().setValues(key, values);
-//  }
-//
-//  public Response useContextTargetResponse() {
-//    checkContextInitialized("useContextTargetResponse()");
-//    if (this.targetResponse == null) {
-//      this.targetResponse = BaseScriptableObject.newObject(Response.class, engine);
-//      this.mocks.targetResponse = spy(this.targetResponse);
-//      this.context.setTargetResponse(this.targetResponse);
-//    }
-//    return this.targetResponse;
-//  }
-//
-//  public void setContextTargetResponseHeader(String key , List<Object> values) {
-//    checkContextInitialized("setContextTargetResponseHeader()");
-//    Response response = useContextTargetResponse();
-//    response.getHeaders().setValues(key, values);
-//  }
-//
-//  public void setContextSessionValue(String key, Object value) {
-//    checkContextInitialized("setContextSessionValue()");
-//    this.context.getSession().setValue(key, value);
-//  }
-
-
-  public Crypto useCrypto() {
-    initCrypto();
-    return this.mocks.crypto;
+  // Context
+  public Context useContext() {
+    if (this.mocks.context == null) {
+      this.mocks.context = spy(BaseScriptableObject.newObject(Context.class, engine));
+    }
+    return this.mocks.context;
   }
 
-  private void initCrypto() {
-    if (this.mocks.crypto != null) return;
-    this.mocks.crypto = spy(BaseScriptableObject.newObject(Crypto.class, engine));
+  public void setContextVariable(String key, Object value) {
+    Context context = useContext();
+    context.setVariable(key, value);
+  }
+
+  public Request useContextProxyRequest() {
+    if (this.mocks.proxyRequest == null) {
+      this.mocks.proxyRequest = spy(BaseScriptableObject.newObject(Request.class, engine));
+
+      Context context = useContext();
+      doReturn(this.mocks.proxyRequest).when(context).getProxyRequest();
+    }
+    return this.mocks.proxyRequest;
+  }
+
+  public void setContextProxyRequestHeader(String headerName, List<Object> values) {
+    Request proxyRequest = useContextProxyRequest();
+    proxyRequest.getHeaders().setValues(headerName, values);
+  }
+
+  public Response useContextProxyResponse() {
+    if (this.mocks.proxyResponse == null) {
+      this.mocks.proxyResponse = spy(BaseScriptableObject.newObject(Response.class, engine));
+
+      Context context = useContext();
+      doReturn(this.mocks.proxyResponse).when(context).getProxyResponse();
+    }
+    return this.mocks.proxyResponse;
+  }
+
+  public void setContextProxyResponseHeader(String headerName, List<Object> values) {
+    Response proxyResponse = useContextProxyResponse();
+    proxyResponse.getHeaders().setValues(headerName, values);
+  }
+
+  public Request useContextTargetRequest() {
+    if (this.mocks.targetRequest == null) {
+      this.mocks.targetRequest = spy(BaseScriptableObject.newObject(Request.class, engine));
+
+      Context context = useContext();
+      doReturn(this.mocks.targetRequest).when(context).getTargetRequest();
+    }
+    return this.mocks.targetRequest;
+  }
+
+  public void setContextTargetRequestHeader(String headerName, List<Object> values) {
+    Request targetRequest = useContextTargetRequest();
+    targetRequest.getHeaders().setValues(headerName, values);
+  }
+
+  public Response useContextTargetResponse() {
+    if (this.mocks.targetResponse == null) {
+      this.mocks.targetResponse = spy(BaseScriptableObject.newObject(Response.class, engine));
+
+      Context context = useContext();
+      doReturn(this.mocks.targetResponse).when(context).getTargetResponse();
+    }
+    return this.mocks.targetResponse;
+  }
+
+  public void setContextTargetResponseHeader(String headerName, List<Object> values) {
+    Response targetResponse = useContextTargetResponse();
+    targetResponse.getHeaders().setValues(headerName, values);
+  }
+
+  public Session useContextSession() {
+    if (this.mocks.session == null) {
+      this.mocks.session = spy(BaseScriptableObject.newObject(Session.class, engine));
+
+      Context context = useContext();
+      doReturn(this.mocks.session).when(context).getSession();
+    }
+    return this.mocks.session;
+  }
+
+  public void setContextSessionValue(String key, Object value) {
+    Session session = useContextSession();
+    session.setValue(key, value);
+  }
+
+  // Crypto
+  public Crypto useCrypto() {
+    if (this.mocks.crypto == null) {
+      this.mocks.crypto = spy(BaseScriptableObject.newObject(Crypto.class, engine));
+//      doReturn(useCryptoSha1()).when(this.mocks.crypto).getHash("SHA-1");
+//      doReturn(useCryptoSha256()).when(this.mocks.crypto).getHash("SHA-256");
+//      doReturn(useCryptoSha512()).when(this.mocks.crypto).getHash("SHA-512");
+//      doReturn(useCryptoMd5()).when(this.mocks.crypto).getHash("MD5");
+    }
+    return this.mocks.crypto;
   }
 
   public CryptoHashObject useCryptoSha1() {
     if (this.mocks.sha1 == null) {
       this.mocks.sha1 = spy(BaseScriptableObject.newObject(CryptoHashObject.class, engine));
 
-      initCrypto();
-      doReturn(this.mocks.sha1).when(this.mocks.crypto).getSHA1();
+      Crypto crypto = useCrypto();
+      doReturn(this.mocks.sha1).when(crypto).getSHA1();
     }
     return this.mocks.sha1;
   }
@@ -151,8 +156,8 @@ public abstract class AbstractJsPolicyTest {
     if (this.mocks.sha256 == null) {
       this.mocks.sha256 = spy(BaseScriptableObject.newObject(CryptoHashObject.class, engine));
 
-      initCrypto();
-      doReturn(this.mocks.sha256).when(this.mocks.crypto).getSHA256();
+      Crypto crypto = useCrypto();
+      doReturn(this.mocks.sha256).when(crypto).getSHA256();
     }
     return this.mocks.sha256;
   }
@@ -161,8 +166,8 @@ public abstract class AbstractJsPolicyTest {
     if (this.mocks.sha512 == null) {
       this.mocks.sha512 = spy(BaseScriptableObject.newObject(CryptoHashObject.class, engine));
 
-      initCrypto();
-      doReturn(this.mocks.sha512).when(this.mocks.crypto).getSHA512();
+      Crypto crypto = useCrypto();
+      doReturn(this.mocks.sha512).when(crypto).getSHA512();
     }
     return this.mocks.sha512;
   }
@@ -171,20 +176,27 @@ public abstract class AbstractJsPolicyTest {
     if (this.mocks.md5 == null) {
       this.mocks.md5 = spy(BaseScriptableObject.newObject(CryptoHashObject.class, engine));
 
-      initCrypto();
-      doReturn(this.mocks.md5).when(this.mocks.crypto).getMD5();
+      Crypto crypto = useCrypto();
+      doReturn(this.mocks.md5).when(crypto).getMD5();
     }
     return this.mocks.md5;
   }
 
-  private void checkContextInitialized(String methodName) {
-    if (this.mocks.context == null) throw new IllegalStateException("Context is not set. You have to call 'useContext()' before using method '" + methodName + "'.");
-  }
+//  public CryptoHashObject useCryptoGetHash() {
+//    Crypto crypto = useCrypto();
+//    doReturn(useCryptoSha1()).when(crypto).getHash("SHA-1");
+//    doReturn(useCryptoSha256()).when(crypto).getHash("SHA-256");
+//    doReturn(useCryptoSha512()).when(crypto).getHash("SHA-512");
+//    doReturn(useCryptoMd5()).when(crypto).getHash("MD5");
+//    return // use switch here to return correct hash object?
+//  }
 
   private class Mocks {
-    // Context
+    // Shorthands
     private RequestShortcut request;
     private ResponseShortcut response;
+
+    // Context
     private Context context;
     private Session session;
     private Request proxyRequest;
