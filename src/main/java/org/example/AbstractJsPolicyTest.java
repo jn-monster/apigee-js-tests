@@ -134,10 +134,6 @@ public abstract class AbstractJsPolicyTest {
   public Crypto useCrypto() {
     if (this.mocks.crypto == null) {
       this.mocks.crypto = spy(BaseScriptableObject.newObject(Crypto.class, engine));
-//      doReturn(useCryptoSha1()).when(this.mocks.crypto).getHash("SHA-1");
-//      doReturn(useCryptoSha256()).when(this.mocks.crypto).getHash("SHA-256");
-//      doReturn(useCryptoSha512()).when(this.mocks.crypto).getHash("SHA-512");
-//      doReturn(useCryptoMd5()).when(this.mocks.crypto).getHash("MD5");
     }
     return this.mocks.crypto;
   }
@@ -181,15 +177,6 @@ public abstract class AbstractJsPolicyTest {
     }
     return this.mocks.md5;
   }
-
-//  public CryptoHashObject useCryptoGetHash() {
-//    Crypto crypto = useCrypto();
-//    doReturn(useCryptoSha1()).when(crypto).getHash("SHA-1");
-//    doReturn(useCryptoSha256()).when(crypto).getHash("SHA-256");
-//    doReturn(useCryptoSha512()).when(crypto).getHash("SHA-512");
-//    doReturn(useCryptoMd5()).when(crypto).getHash("MD5");
-//    return // use switch here to return correct hash object?
-//  }
 
   private class Mocks {
     // Shorthands
