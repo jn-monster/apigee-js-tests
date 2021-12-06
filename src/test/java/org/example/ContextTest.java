@@ -1,12 +1,11 @@
 package org.example;
 
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import org.example.apigee.model.JsMapValues;
+import org.example.apigee.model.Flow;
 import org.example.apigee.model.Request;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -17,6 +16,7 @@ class ContextTest extends AbstractJsPolicyTest {
   @Test
   void test() {
     // Arrange
+    setContextFlow(Flow.PROXY_REQ_FLOW);
     // Context Session
     var contextSession = useContextSession();
     contextSession.put("foo", null, "bar");
@@ -28,22 +28,21 @@ class ContextTest extends AbstractJsPolicyTest {
     when(proxyRequest.getUrl()).thenReturn("http://someurl.com");
 
     var proxyRequestHeaders = proxyRequest.getHeaders();
-    proxyRequestHeaders.setValues("foo", Arrays.asList("bar"));
-    proxyRequestHeaders.setValues("foo2", Arrays.asList("bar", "baz"));
+    setHeaderValue(proxyRequestHeaders, "foo", Arrays.asList("bar"));
+    setHeaderValue(proxyRequestHeaders, "foo2", Arrays.asList("bar", "baz"));
 
     var proxyRequestQueryParams = proxyRequest.getQueryParams();
-    proxyRequestQueryParams.setValues("city", Arrays.asList("PaloAlto", "NewYork"));
+    setQueryParamValue(proxyRequestQueryParams,"city", Arrays.asList("PaloAlto", "NewYork"));
 
     // Target Response
     var targetResponse = useContextTargetResponse();
     var responseHeaders = targetResponse.getHeaders();
-    responseHeaders.setValues("response-foo", Arrays.asList("response-bar"));
-    responseHeaders.setValues("response-foo2", Arrays.asList("response-bar", "response-baz"));
+    setHeaderValue(responseHeaders, "response-foo", Arrays.asList("response-bar"));
+    setHeaderValue(responseHeaders, "response-foo2", Arrays.asList("response-bar", "response-baz"));
 
-    var responseStatus = targetResponse.getStatus();
-    responseStatus.setCode("200");
-    responseStatus.setMessage("OK");
-
+    var responseStatus = useTargetResponseStatus();
+    when(responseStatus.getCode()).thenReturn("200");
+    when(responseStatus.getMessage()).thenReturn("OK");
 
     try {
       // Act

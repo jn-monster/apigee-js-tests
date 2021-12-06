@@ -28,18 +28,7 @@ public class Crypto extends BaseScriptableObject {
 
   @JSFunction
   public CryptoHashObject getHash(String hashName) {
-    switch (hashName) {
-      case "MD5":
-        return getMD5();
-      case "SHA-1":
-        return getSHA1();
-      case "SHA-256":
-        return getSHA256();
-      case "SHA-512":
-        return getSHA512();
-      default:
-        throw new IllegalStateException("Unsupported Hash '" + hashName + "' specified");
-    }
+    throw new UnsupportedOperationException("Call 'useCryptoSha1()', 'useCryptoSha256()', 'useCryptoSha512()' or 'useCryptoMd5()' in tests to get mock the wanted hash reference.");
   }
 
   // DateFormat

@@ -5,6 +5,7 @@ import static org.mockito.Mockito.*;
 import java.io.File;
 import org.example.apigee.model.Crypto;
 import org.example.apigee.model.CryptoHashObject;
+import org.example.apigee.model.Flow;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -16,6 +17,7 @@ class CryptoTest extends AbstractJsPolicyTest {
   void test() throws Exception {
     try {
       // Arrange
+      setContextFlow(Flow.PROXY_REQ_FLOW);
       CryptoHashObject sha1 = useCryptoSha1();
       when(sha1.digest()).thenReturn("(Digested) something");
       when(sha1.digest64()).thenReturn("(Digested64) something");

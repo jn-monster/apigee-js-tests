@@ -10,10 +10,11 @@ public class JsMap extends BaseScriptableObject {
 
   private Map<String, JsMapValues> mapValues = new LinkedHashMap<>();
 
-  public void setValues(String key , List<Object> values) {
+  public Scriptable setValues(String key , List<Object> values) {
     var mapValue = newObject(JsMapValues.class);
     mapValue.setValues(values);
     this.mapValues.put(key, mapValue);
+    return mapValue;
   }
 
   @Override

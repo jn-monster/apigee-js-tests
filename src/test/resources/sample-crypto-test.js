@@ -7,6 +7,8 @@ const sha256 = crypto.getHash('SHA-256');
 sha1.update(data);
 sha1.update(data2[2]);
 
+context.session['baz'] = data3;
+
 const sha1Hash = sha1.digest();
 const sha1Hash64 = sha1.digest64();
 

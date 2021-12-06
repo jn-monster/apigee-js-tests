@@ -7,7 +7,7 @@ context.setVariable(newContextObjectVariableName, newContextObjectVariableValue)
 if (context.getVariable(newContextObjectVariableName) === undefined) {
   errors.push("'context.getVariable('" + newContextObjectVariableName + "')' was expected to be found in the variables but was not.");
 }
-if (context.getVariable(newContextObjectVariableName) != newContextObjectVariableValue) { // TODO: verify with Mira if this is correct
+if (context.getVariable(newContextObjectVariableName) != newContextObjectVariableValue) {
   errors.push("'context.getVariable('" + newContextObjectVariableName + "')' was expected to be '" + newContextObjectVariableValue + "' but was '" + context.getVariable(newContextObjectVariableName) + "'");
 }
 
@@ -45,9 +45,6 @@ if (context.getVariable(newContextVariableName) === undefined || context.getVari
   errors.push("'context.getVariable('" + newContextVariableName + "')' was expected to be found in the variables but was not or had an incorrect value.");
 }
 context.removeVariable(newContextVariableName);
-if (context.getVariable(newContextVariableName) !== null) {
-  errors.push("'context.getVariable('" + newContextVariableName + "')' was expected to be not found in the variables but was present.");
-}
 
 // context.flow tests
 const contextFlowType = typeof context.flow;
@@ -86,11 +83,9 @@ const proxyRequestUrlExpectedValue = 'http://someurl.com';
 if (context.proxyRequest.url !== proxyRequestUrlExpectedValue) {
   errors.push("'context.proxyRequest.url' is expected to be '" + proxyRequestUrlExpectedValue + "' but was '" + context.proxyRequest.url + "'");
 }
-
-// TODO: Shorthands
-// if (request.url !== proxyRequestUrlExpectedValue) {
-//   errors.push("'request.url' is expected to be '" + proxyRequestUrlExpectedValue + "' but was '" + request.url + "'");
-// }
+if (request.url !== proxyRequestUrlExpectedValue) {
+  errors.push("'request.url' is expected to be '" + proxyRequestUrlExpectedValue + "' but was '" + request.url + "'");
+}
 
 // context.proxyRequest.method
 const proxyRequestMethodType = typeof context.proxyRequest.method;
@@ -103,10 +98,9 @@ if (context.proxyRequest.method !== proxyRequestMethodExpectedValue) {
   errors.push("'context.proxyRequest.method' is expected to be '" + proxyRequestMethodExpectedValue + "' but was '" + context.proxyRequest.method + "'");
 }
 
-// TODO: Shorthands
-// if (request.method !== proxyRequestMethodExpectedValue) {
-//   errors.push("'request.method' is expected to be '" + proxyRequestMethodExpectedValue + "' but was '" + request.method + "'");
-// }
+if (request.method !== proxyRequestMethodExpectedValue) {
+  errors.push("'request.method' is expected to be '" + proxyRequestMethodExpectedValue + "' but was '" + request.method + "'");
+}
 
 // context.proxyRequest.queryParams
 const proxyRequestQueryParamsType = typeof context.proxyRequest.queryParams;
